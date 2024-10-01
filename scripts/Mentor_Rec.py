@@ -151,6 +151,66 @@ if st.button(combined_button_text):
     # Insert the JSON data into Supabase
     response_json = supabase.table(table_name).insert([json_data]).execute()
 
+    #Demo code to add the google drive API . Please give it a AWS backend connection. 
+    #####################
+    #Define google drive API Scope here
+    #SCOPES = 
+    #PARENT_FOLDER_ID = 
+
+    ## Function to upload a Pdf/text file to Google Drive
+
+    #def upload_csv(uploaded_file):
+        #try:
+            # Get the current directory of the script
+            #current_dir = os.path.dirname(os.path.abspath(__file__))
+        
+            # Path to the service account JSON file
+            #json_file_path = os.path.join(current_dir, 'add json file adress')
+
+            ##Please add this json file obtained from google cloud console to the aws cloud , for now it it present on the supabase.
+
+            # Load the credentials from the service account JSON file
+            #creds = service_account.Credentials.from_service_account_file(
+                #json_file_path,
+                #scopes=SCOPES
+            )
+
+            # Build the Drive service
+            #service = build('drive', 'v3', credentials=creds)
+        
+            # Create a temporary file to save the uploaded file
+            #with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                #temp_file.write(uploaded_file.read())  # Save the uploaded file to the temp file
+                #temp_file_path = temp_file.name  # Get the temp file path
+
+                # Metadata for the file
+                #file_metadata = {
+                    #'name': uploaded_file.name,  # Use the uploaded file name
+                    #'parents': ['your_parent_folder_id']  # The ID of the folder where the file will be uploaded
+                }
+
+                # Upload the file with the appropriate MIME type
+                #media = MediaFileUpload(temp_file_path, mimetype='text/csv', resumable=True)
+                #file = service.files().create(
+                    #body=file_metadata,
+                    #media_body=media,
+                    #fields='id'
+                #).execute()
+
+                # File uploaded successfully
+                #st.success(f"CSV file uploaded successfully with ID: {file.get('id')}")
+
+                # Clean up the temporary file after uploading
+                #os.remove(temp_file_path)
+
+        #except Exception as e:
+            #st.error(f"An error occurred: {e}")
+
+# Assuming uploaded_file is a file uploaded using Streamlit file uploader
+# Call the upload function
+    #upload_csv(uploaded_file)
+    
+
     
    
 
