@@ -1,3 +1,5 @@
+#Import necessary libraries
+
 import pandas as pd
 import streamlit as st
 import gspread
@@ -22,14 +24,11 @@ import pandas as pd
 import pyperclip  # Import the pyperclip module for clipboard operations
 import os
 import requests
+
 #from supabase_py import create_client,Client
-#from supabase_py import create_client,Client
-# Read the category dataset and extract unique categories
 
 from supabase import create_client, Client
 from supabase.client import ClientOptions
-
-
 
 
 # Function to get the current timestamp
@@ -43,10 +42,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+#Display the title of the Google form
 st.markdown(
     "<h1 style='color: black; font-weight: bold;'>Kalpana - She for STEM Role Model and Mentor Recruitment Form</h1>", 
     unsafe_allow_html=True
 )
+
+#Google form Questions
 
 Name=st.text_input("Enter your full name*")
 Email_id=st.text_input("Enter your email address*")
@@ -98,7 +100,7 @@ if not Name or not Email_id or not Number or not Profile or not Institute or not
     st.error("Please fill in all the compulsory fields marked with * before proceeding.")
     st.stop()
 
-
+#Create Data Frame for the inputs in the GUI's element
 def create_feedback_dataframe(primary_key, Name, Email_id, Number, Profile, Institute, Current_job, Degree, Country, Current_city, selected_options, comments_a,option2,session_times,option_B,uploaded_file1,uploaded_file2):
     data = {
         'ID': primary_key,
@@ -124,7 +126,7 @@ def create_feedback_dataframe(primary_key, Name, Email_id, Number, Profile, Inst
     return feedback_df
 
 
-
+#Supabase Credential to store data to database 
 url: str = 'https://twetkfnfqdtsozephdse.supabase.co'
 key: str = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3ZXRrZm5mcWR0c296ZXBoZHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE5Njk0MzcsImV4cCI6MjAzNzU0NTQzN30.D76H5RoTel0M7Wj6PTRSAXxxYGic7K25BSaeQDZqIN0'
 # Create a Supabase client
@@ -137,6 +139,7 @@ supabase: Client = create_client(url, key, options=ClientOptions(
 
 combined_button_text = "Submit"   
 
+#Button to push data to supabase 
 if st.button(combined_button_text):
     feedback_df = create_feedback_dataframe(primary_key, Name, Email_id, Number, Profile, Institute, Current_job, Degree, Country, Current_city, selected_options, comments_a,option2,session_times,option_B,uploaded_file1,uploaded_file2)
 
