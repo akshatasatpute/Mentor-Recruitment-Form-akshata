@@ -24,11 +24,13 @@ import pandas as pd
 import pyperclip  # Import the pyperclip module for clipboard operations
 import os
 import requests
-
 #from supabase_py import create_client,Client
+#from supabase_py import create_client,Client
+# Read the category dataset and extract unique categories
 
 from supabase import create_client, Client
 from supabase.client import ClientOptions
+
 
 
 # Function to get the current timestamp
@@ -53,9 +55,9 @@ st.markdown(
 Name=st.text_input("Enter your full name*")
 Email_id=st.text_input("Enter your email address*")
 Number=st.text_input("Enter your WhatsApp number (with country code, DONOT ADD '+')*")
-Profile=st.text_input("Enter your LinkedIn profile link here*")
+Profile=st.text_input("Enter your LinkedIn profile link here")
 Institute=st.text_input("Enter your current Institute/University/Organization*")
-Current_job=st.text_input("Current Job title/Designation*")
+Current_job=st.text_input("Current Job title/Designation")
 Degree = st.selectbox('Highest degree obtained*',("B.Sc.","M.Sc.","B.E./B.Tech.","M.Tech.","B.Pharm.","M.Pharm.","MBA","Ph.D."))
 primary_key = f"{Number}_{Name}"
 
@@ -82,44 +84,46 @@ Current_city=st.text_input("Your current city*")
 options = ['English','Hindi','Marathi','Malayalam','Kannada','Telgu','Assamese','Bengali','Gujarati','Manipuri','Tamil','Odia','Punjabi','Urdu','Maithili','Konkani','Kashmiri']
 selected_options = st.multiselect("What communication languages are you comfortable in? * ", options)
 
-comments=['Inspirational female role model for young women in STEM| You will\n share your personal & professional journey in STEM|\n Virtual engagement| 1.5 hours 1-2 times a year','Mentor|Help fellows advance their STEM skills through innovative &frugal\nhands-on projects|Virtual engagement|\n 3 hours per week for 12-14 eeks once a year']
+comments=['Inspirational female role model for young women in STEM| You will\n share your personal & professional journey in STEM|\n Virtual engagement| 1.5 hours 1-2 times a year','Mentor|Help fellows advance their STEM skills through innovative & frugal\nhands-on projects|Virtual engagement|\n 3 hours per week for 12-14 weeks once a year','Tech Capstone Project/Research Project Developers| Design challenging hands on projects for fellows to elicit critical thinking| Virtual engagement |atleast 2-3 hours per week/1 month']
 comments_a=st.selectbox("How would you like to join VigyanShaala's #SheforSTEM movement?*",comments)
 
-option2 = st.radio("How many years have you worked as a STEM professional?*", ("2-3 years","4-6 years","7-10 years"," >10 years"))
-Time=["Thursday | 3:00 - 4:30 PM IST","Friday | 3:00 - 4:30 PM IST","Saturday | 10:00 - 11:30 AM IST","Saturday | 3:00 - 4:30 PM IST","Saturday | 4:00 - 5:30 PM IST","Saturday | 6:00 - 7:30 PM IST"]
-session_times=st.multiselect("Do you have any preferred days and times for these sessions? Please select all that apply*",Time)
+option2 = st.radio("How many years have you worked as a STEM professional?*", ("2-3 years","4-6 years","7-10 years"," + 10 years"))
+#Time=["Thursday | 3:00 - 4:30 PM IST","Friday | 3:00 - 4:30 PM IST","Saturday | 10:00 - 11:30 AM IST","Saturday | 3:00 - 4:30 PM IST","Saturday | 4:00 - 5:30 PM IST","Saturday | 6:00 - 7:30 PM IST"]
+#session_times=st.multiselect("Do you have any preferred days and times for these sessions? Please select all that apply*",Time)
 option_B = st.radio(" Would you like to schedule a 10-15 minute call with us for understanding the structure/content of your talk?*",("Yes","No","Maybe"))
 
 #uploaded_file = st.file_uploader("Upload a file", type=["csv", "txt"])
-uploaded_file1 = st.file_uploader(" Upload your Curriculum Vitae/Resume*", accept_multiple_files=False, type=["csv", "txt"])
-
+uploaded_file1 = st.file_uploader(" Upload your Curriculum Vitae/Resume*", accept_multiple_files=False, type=["pdf", "txt"])
+   
 #uploaded_file = st.file_uploader("Upload a file", type=["csv", "txt"])
-uploaded_file2 = st.file_uploader(" Please upload your bio and a professional headshot*", accept_multiple_files=False, type=["csv", "txt"])
+uploaded_file2 = st.file_uploader(" Please upload your bio and a professional headshot", accept_multiple_files=False, type=["pdf", "txt"])
 
-if not Name or not Email_id or not Number or not Profile or not Institute or not Current_job or not Degree or not Country or not Current_city or not selected_options or not comments_a or not option2 or not session_times or not option_B or not uploaded_file1 or not uploaded_file2 :
+if not Name or not Email_id or not Number or not Institute or not Degree or not Country or not Current_city or not selected_options or not comments_a or not option2 or not option_B or not uploaded_file1:
     st.error("Please fill in all the compulsory fields marked with * before proceeding.")
     st.stop()
 
+
 #Create Data Frame for the inputs in the GUI's element
-def create_feedback_dataframe(primary_key, Name, Email_id, Number, Profile, Institute, Current_job, Degree, Country, Current_city, selected_options, comments_a,option2,session_times,option_B,uploaded_file1,uploaded_file2):
+
+def create_feedback_dataframe(primary_key, Name, Email_id, Number, Profile, Institute, Current_job, Degree, Country, Current_city, selected_options, comments_a,option2,option_B,uploaded_file1,uploaded_file2):
     data = {
         'ID': primary_key,
         'Enter your full name *': Name,
         'Enter your email address *':Email_id ,
         "Enter your WhatsApp number (with country code, DONOT ADD '+') *":Number,
-        'Enter your LinkedIn profile link here *': Profile,
+        'Enter your LinkedIn profile link here': Profile,
         'Enter your current Institute/University/Organization *':Institute,
-        'Current Job title/Designation *': Current_job ,
+        'Current Job title/Designation': Current_job ,
         'Highest degree obtained *':Degree ,
         'Country you currently reside in *': Country,
         'Your current city *':Current_city ,
         'What communication languages are you comfortable in?  *': selected_options,
         "How would you like to join VigyanShaala's #SheforSTEM movement?": comments_a,
         'How many years have you worked as a STEM professional? *': option2,
-        'Do you have any preferred days and times for these sessions? Pl': session_times,
+        #'Do you have any preferred days and times for these sessions? Pl': session_times,
         'Would you like to schedule a 10-15 minute call with us for unde': option_B,
         'Upload your Curriculum Vitae/Resume *': uploaded_file1.name if uploaded_file1 else None,  # Add file name or None if no file
-        'Please upload your bio and a professional headshot *': uploaded_file2.name if uploaded_file2 else None  # Same for second file
+        'Please upload your bio and a professional headshot': uploaded_file2.name if uploaded_file2 else None  # Same for second file
     }
 
     feedback_df = pd.DataFrame([data])
@@ -127,6 +131,7 @@ def create_feedback_dataframe(primary_key, Name, Email_id, Number, Profile, Inst
 
 
 #Supabase Credential to store data to database 
+
 url: str = 'https://twetkfnfqdtsozephdse.supabase.co'
 key: str = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3ZXRrZm5mcWR0c296ZXBoZHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE5Njk0MzcsImV4cCI6MjAzNzU0NTQzN30.D76H5RoTel0M7Wj6PTRSAXxxYGic7K25BSaeQDZqIN0'
 # Create a Supabase client
@@ -140,22 +145,24 @@ supabase: Client = create_client(url, key, options=ClientOptions(
 combined_button_text = "Submit"   
 
 #Button to push data to supabase 
+
 if st.button(combined_button_text):
-    feedback_df = create_feedback_dataframe(primary_key, Name, Email_id, Number, Profile, Institute, Current_job, Degree, Country, Current_city, selected_options, comments_a,option2,session_times,option_B,uploaded_file1,uploaded_file2)
+    feedback_df = create_feedback_dataframe(primary_key, Name, Email_id, Number, Profile, Institute, Current_job, Degree, Country, Current_city, selected_options, comments_a,option2,option_B,uploaded_file1,uploaded_file2)
 
     # Prepare the JSON data
-    json_data = feedback_df[[ 'Enter your full name *', 'Enter your email address *',"Enter your WhatsApp number (with country code, DONOT ADD '+') *", 'Enter your LinkedIn profile link here *', 'Enter your current Institute/University/Organization *','Current Job title/Designation *','Highest degree obtained *','Country you currently reside in *','Your current city *','What communication languages are you comfortable in?  *',"How would you like to join VigyanShaala's #SheforSTEM movement?",'How many years have you worked as a STEM professional? *','Do you have any preferred days and times for these sessions? Pl','Would you like to schedule a 10-15 minute call with us for unde','ID']].to_dict(orient='records')[0]
+    json_data = feedback_df[[ 'Enter your full name *', 'Enter your email address *',"Enter your WhatsApp number (with country code, DONOT ADD '+') *", 'Enter your LinkedIn profile link here', 'Enter your current Institute/University/Organization *','Current Job title/Designation','Highest degree obtained *','Country you currently reside in *','Your current city *','What communication languages are you comfortable in?  *',"How would you like to join VigyanShaala's #SheforSTEM movement?",'How many years have you worked as a STEM professional? *','Would you like to schedule a 10-15 minute call with us for unde','Upload your Curriculum Vitae/Resume *','Please upload your bio and a professional headshot','ID']].to_dict(orient='records')[0]
 
     table_name = "Recruitment"
 
     # Insert the JSON data into Supabase
     response_json = supabase.table(table_name).insert([json_data]).execute()
 
-    #Demo code to add the google drive API . Please give it a AWS backend connection. 
+
+    #Demo code to add the google drive API . Please give it a AWS backend connection. This gets stored in the trial folder get a different folders for storing different uploaded files.
     #####################
     #Define google drive API Scope here
-    #SCOPES = 
-    #PARENT_FOLDER_ID = 
+    #SCOPES = ['https://www.googleapis.com/auth/drive.file']
+    #PARENT_FOLDER_ID = "14OXiGuiaksXmeTigOtHHRtky7bU8dOpG"
 
     ## Function to upload a Pdf/text file to Google Drive
 
@@ -165,7 +172,7 @@ if st.button(combined_button_text):
             #current_dir = os.path.dirname(os.path.abspath(__file__))
         
             # Path to the service account JSON file
-            #json_file_path = os.path.join(current_dir, 'add json file adress')
+            #json_file_path = os.path.join(current_dir, 'strong-jetty-435412-q0-a8ef3686d38f.json')
 
             ##Please add this json file obtained from google cloud console to the aws cloud , for now it it present on the supabase.
 
@@ -173,7 +180,7 @@ if st.button(combined_button_text):
             #creds = service_account.Credentials.from_service_account_file(
                 #json_file_path,
                 #scopes=SCOPES
-            )
+            #)
 
             # Build the Drive service
             #service = build('drive', 'v3', credentials=creds)
@@ -187,7 +194,7 @@ if st.button(combined_button_text):
                 #file_metadata = {
                     #'name': uploaded_file.name,  # Use the uploaded file name
                     #'parents': ['your_parent_folder_id']  # The ID of the folder where the file will be uploaded
-                }
+                #}
 
                 # Upload the file with the appropriate MIME type
                 #media = MediaFileUpload(temp_file_path, mimetype='text/csv', resumable=True)
@@ -210,6 +217,7 @@ if st.button(combined_button_text):
 # Call the upload function
     #upload_csv(uploaded_file)
     
+
 
     
    
