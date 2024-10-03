@@ -157,6 +157,8 @@ if st.button(combined_button_text):
     # Insert the JSON data into Supabase
     response_json = supabase.table(table_name).insert([json_data]).execute()
 
+    st.write("Thankyou for your response")
+
 
     #Demo code to add the google drive API . Please give it a AWS backend connection. This gets stored in the trial folder get a different folders for storing different uploaded files.
     #####################
