@@ -87,7 +87,7 @@ selected_options = st.multiselect("What communication languages are you comforta
 comments=['Inspirational female role model for young women in STEM| You will\n share your personal & professional journey in STEM|\n Virtual engagement| 1.5 hours 1-2 times a year','Mentor|Help fellows advance their STEM skills through innovative & frugal\nhands-on projects|Virtual engagement|\n 3 hours per week for 12-14 weeks once a year','Tech Capstone Project/Research Project Developers| Design challenging hands on projects for fellows to elicit critical thinking| Virtual engagement |atleast 2-3 hours per week/1 month']
 comments_a=st.selectbox("How would you like to join VigyanShaala's #SheforSTEM movement?*",comments)
 
-option2 = st.radio("How many years have you worked as a STEM professional?*", ("2-3 years","4-6 years","7-10 years"," + 10 years"))
+option2 = st.radio("How many years have you worked as a STEM professional?*", ("2-3 years","4-6 years","7-10 years","More than 10 years"))
 #Time=["Thursday | 3:00 - 4:30 PM IST","Friday | 3:00 - 4:30 PM IST","Saturday | 10:00 - 11:30 AM IST","Saturday | 3:00 - 4:30 PM IST","Saturday | 4:00 - 5:30 PM IST","Saturday | 6:00 - 7:30 PM IST"]
 #session_times=st.multiselect("Do you have any preferred days and times for these sessions? Please select all that apply*",Time)
 option_B = st.radio(" Would you like to schedule a 10-15 minute call with us for understanding the structure/content of your talk?*",("Yes","No","Maybe"))
