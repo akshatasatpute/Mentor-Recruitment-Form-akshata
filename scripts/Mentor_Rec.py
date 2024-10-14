@@ -187,6 +187,6 @@ if st.button(combined_button_text):
     engine = create_engine(engine_str)
 
     # Store the DataFrame in the database table
-    table_name = 'Mentor'  # Replace with your table name
+    table_name = 'Mentor_Recruitment'  # Replace with your table name
     feedback_df.to_sql(table_name, con=engine, if_exists='append', index=False)
     st.success('Thankyou for your response.')
