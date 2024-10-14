@@ -20,6 +20,8 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 from dotenv import load_dotenv
 load_dotenv()
+from sqlalchemy import create_engine
+
 
 # AWS credentials setup
 import os
