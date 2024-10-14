@@ -7,6 +7,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os
 import requests
+from sqlalchemy import create_engine
 from io import StringIO  # Import StringIO directly from the io module
 from io import BytesIO
 from datetime import datetime
@@ -20,7 +21,7 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 from dotenv import load_dotenv
 load_dotenv()
-from sqlalchemy import create_engine
+
 
 
 # AWS credentials setup
