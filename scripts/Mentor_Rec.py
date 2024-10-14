@@ -18,8 +18,8 @@ import json
 import numpy as np
 import boto3
 from botocore.exceptions import NoCredentialsError
-#from dotenv import load_dotenv
-#load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 # AWS credentials setup
 import os
