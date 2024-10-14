@@ -187,5 +187,3 @@ if st.button(combined_button_text):
     table_name = 'Mentor'  # Replace with your table name
     feedback_df.to_sql(table_name, con=engine, if_exists='append', index=False)
     st.success('Thankyou for your response.')
-
-    
