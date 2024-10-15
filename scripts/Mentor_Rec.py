@@ -173,11 +173,11 @@ if st.button(combined_button_text):
     json_data = feedback_df[[ 'Enter your full name *', 'Enter your email address *',"Enter your WhatsApp number (with country code, DONOT ADD '+') *", 'Enter your LinkedIn profile link here', 'Enter your current Institute/University/Organization *','Current Job title/Designation','Highest degree obtained *','Country you currently reside in *','Your current city *','What communication languages are you comfortable in?  *',"How would you like to join VigyanShaala's #SheforSTEM movement?",'How many years have you worked as a STEM professional? *','Would you like to schedule a 10-15 minute call with us for unde','Upload your Curriculum Vitae/Resume *','Please upload your bio and a professional headshot','ID']].to_dict(orient='records')[0]
     feedback_df = feedback_df.applymap(lambda x: ', '.join(x) if isinstance(x, list) else x)
     # AWS RDS database connection info
-    db_username = 'vigyan'
-    db_password = '321#Dev'
-    db_name = 'vigyan'
-    db_port = '3306'
-    db_endpoint = '35.154.220.255'
+    db_username = ''
+    db_password = ''
+    db_name = ''
+    db_port = ''
+    db_endpoint = ''
 
 
     # Create the connection string
