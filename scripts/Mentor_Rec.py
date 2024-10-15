@@ -172,19 +172,22 @@ if st.button(combined_button_text):
     # Prepare the JSON data
     json_data = feedback_df[[ 'Enter your full name *', 'Enter your email address *',"Enter your WhatsApp number (with country code, DONOT ADD '+') *", 'Enter your LinkedIn profile link here', 'Enter your current Institute/University/Organization *','Current Job title/Designation','Highest degree obtained *','Country you currently reside in *','Your current city *','What communication languages are you comfortable in?  *',"How would you like to join VigyanShaala's #SheforSTEM movement?",'How many years have you worked as a STEM professional? *','Would you like to schedule a 10-15 minute call with us for unde','Upload your Curriculum Vitae/Resume *','Please upload your bio and a professional headshot','ID']].to_dict(orient='records')[0]
     feedback_df = feedback_df.applymap(lambda x: ', '.join(x) if isinstance(x, list) else x)
+
     # AWS RDS database connection info
-    db_username = ''
-    db_password = ''
-    db_name = ''
-    db_port = ''
-    db_endpoint = ''
+    DB_USERNAME=os.getenv('DB_USERNAME')
+    DB_PASSWORD=os.getenv('DB_PASSWORD')
+    DB_NAME=os.getenv('DB_NAME')
+    DB_PORT=os.getenv('DB_PORT')
+    DB_ENDPOINT=os.getenv('DB_ENDPOINT')
+
 
 
     # Create the connection string
-    engine_str = f"mysql+mysqlconnector://{db_username}:{db_password}@{db_endpoint}:{db_port}/{db_name}"
+    engine_str = f"mysql+mysqlconnector://{DB_USERNAME}:{DB_PASSWORD}@{DB_ENDPOINT}:{DB_PORT}/{DB_NAME}"
 
     # Create the SQLAlchemy engine
     engine = create_engine(engine_str)
+    
 
     # Store the DataFrame in the database table
     table_name = 'Mentor_Recruitment'  # Replace with your table name
